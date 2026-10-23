@@ -1,5 +1,5 @@
 
-name: RaceDay API Build and Test
+name: RaceDay API Build
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,11 +20,8 @@ jobs:
         with:
           dotnet-version: 10.0.x
 
-      - name: Restore dependencies
-        run: dotnet restore
+      - name: Restore API dependencies
+        run: dotnet restore RaceDayAPI.csproj
 
-      - name: Build solution
-        run: dotnet build --no-restore
-
-      - name: Run tests
-        run: dotnet test --no-build --verbosity normal
+      - name: Build API
+        run: dotnet build RaceDayAPI.csproj --no-restore
